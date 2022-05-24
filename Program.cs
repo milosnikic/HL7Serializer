@@ -30,9 +30,24 @@ namespace HL7Serializer
                 Street = "6548 SECRET WAY",
             };
 
-            var hl7Message = new Message(header);
-            hl7Message.AddPatient(patient);
-            Console.WriteLine(hl7Message.Serialize());
+            var serializer = new HLSevenSerializer();
+            Console.WriteLine(serializer.Serialize(header, patient));
+
+            Console.WriteLine("----------------------------------------------");
+
+            var falseResponse = @"MSH|^~\&|||MEDFLOW|MEDFLOW|20140108113941+0100||ACK^A01^ACK|0170cd83|P|2.3\n
+                            MSA|AR|0170cd83|Combination of patient id and issuer of patient id is not unique, identified by field 'patientId' with fieldValue 'MEDFLOW/76040'!|||205^Duplicate key identifier";
+            
+            var falseDeserialized = serializer.Deserialize(falseResponse);
+            Console.WriteLine(string.Format("Result:\n{0} \n{1}", falseDeserialized.Key, falseDeserialized.Value));
+
+            Console.WriteLine("----------------------------------------------");
+
+            var successResponse = @"MSH|^~\&|||MEDFLOW|MEDFLOW|20140108113857+0100||ACK^A01^ACK|0170cd83|P|2.3\n
+                                    MSA|AA|0170cd83||||0^Message accepted";
+            
+            var successDeserialized = serializer.Deserialize(successResponse);
+            Console.WriteLine(string.Format("Result:\n{0} \n{1}", successDeserialized.Key, successDeserialized.Value));
         }
     }
 }
