@@ -1,6 +1,6 @@
 using System;
 
-namespace HL7Serializer.Models.Common
+namespace HL7Serializer.Common
 {
     public class QuantityAndTiming
     {

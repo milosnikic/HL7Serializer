@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using HL7Serializer.Models;
 
-namespace HL7Serializer.Models.Common
+namespace HL7Serializer.Common
 {
     public class Order
     {

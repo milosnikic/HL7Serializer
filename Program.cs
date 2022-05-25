@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using HL7Serializer.Common;
 using HL7Serializer.Models;
-using HL7Serializer.Models.Common;
 
 namespace HL7Serializer
 {
