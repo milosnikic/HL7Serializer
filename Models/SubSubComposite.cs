@@ -1,26 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HL7Serializer.Models
 {
-    public class Composite
+    public class SubSubComposite
     {
         public string Value { get; set; }
-        public List<SubComposite> SubComposites { get; set; }
-        public static Composite Empty = new Composite(string.Empty);
-
-        public Composite(object value)
+        public SubSubComposite(object value)
         {
             if (value is DateTime)
             {
                 Value = ((DateTime)value).ToString("yyyyMMddHHmm");
-                return;
-            }
-
-            if (value is List<SubComposite>)
-            {
-                SubComposites = (List<SubComposite>) value;
-                Value = string.Join(Constants.Delimiters.SubCompositeDelimiter, SubComposites);
                 return;
             }
 

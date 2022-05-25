@@ -16,7 +16,7 @@ namespace HL7Serializer.Models
         public string Serialize()
         {
             var compositesJoined = string.Join(Constants.Delimiters.SegmentDelimiter, Composites);
-            return string.Format("{0}|{1}|", Name, compositesJoined);
+            return string.Join('|', new string[] { Name, compositesJoined });
         }
     }
 }

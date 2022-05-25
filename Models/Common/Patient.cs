@@ -1,26 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HL7Serializer.Models
+namespace HL7Serializer.Models.Common
 {
-    public class Patient
+    public class Patient : Person
     {
-        public int Id { get; set; }
         public string AssigningAuthority { get; set; }
         public List<int> OtherIds { get; set; } = new List<int>();
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public string Middlename { get; set; }
-        public string Suffix { get; set; }
-        public string Prefix { get; set; }
-        public DateOfBirth BirthDate { get; set; }
+        public ShortDate BirthDate { get; set; }
         public char Gender { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-
+        public string State { get; set; }
+        public string Zip { get; set; }
         public static List<SubComposite> GetAddressList(Patient patient)
         {
             return new List<SubComposite>()
@@ -28,6 +21,10 @@ namespace HL7Serializer.Models
                 new SubComposite(patient.Street),
                 SubComposite.Empty,
                 new SubComposite(patient.City),
+                new SubComposite(patient.State),
+                new SubComposite(patient.Zip),
+                new SubComposite(patient.Country),
+                SubComposite.Empty,
                 SubComposite.Empty,
                 SubComposite.Empty,
             };
@@ -39,9 +36,9 @@ namespace HL7Serializer.Models
             {
                 new SubComposite(patient.Lastname),
                 new SubComposite(patient.Firstname),
-                SubComposite.Empty,
-                SubComposite.Empty,
-                SubComposite.Empty,
+                new SubComposite(patient.MiddleInitialOrName),
+                new SubComposite(patient.Suffix),
+                new SubComposite(patient.Prefix),
             };
         }
 
@@ -52,30 +49,9 @@ namespace HL7Serializer.Models
                 new SubComposite(patient.Id),
                 SubComposite.Empty,
                 SubComposite.Empty,
-                new SubComposite(patient.AssigningAuthority)
+                new SubComposite(patient.AssigningAuthority),
+                SubComposite.Empty
             };
-        }
-
-        public class DateOfBirth
-        {
-            public DateTime? Date { get; set; }
-
-            public DateOfBirth() {}
-
-            public DateOfBirth(DateTime? date)
-            {
-                Date = date;
-            }
-
-            public DateOfBirth(DateTime date)
-            {
-                Date = date;
-            }
-
-            public override string ToString()
-            {
-                return Date != null ? ((DateTime)Date).ToString("yyyyMMdd") : "";
-            }
         }
     }
 }

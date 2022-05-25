@@ -10,6 +10,7 @@ namespace HL7Serializer.Models
         {
             public const char SegmentDelimiter = '|';
             public const char SubCompositeDelimiter = '^';
+            public const char SubSubCompositeDelimiter = '&';
         }
     }
 }
